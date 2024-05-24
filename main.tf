@@ -1,24 +1,7 @@
-terraform {
-        required_providers{
-        docker = {
-        source = "kreuzwerker/docker"
-        version = "~> 2.21.0"
+provider "aws" {
+  region = "ap-south-1" # Set your desired region
 }
-}
-}
-
-provider "docker" {}
-
-resource "docker_image" "nginx" {
-        name = "nginx:latest"
-        keep_locally = false
-}
-
-resource "docker_container" "nginx" {
- image = docker_image.nginx.latest
- name = "nginx-tf"
- ports {
- internal = 80
- external = 80
-}
+resource "aws_instance" "foo" {
+  ami = var.ami_value
+  instance_type = var.instance_value
 }
